@@ -1,8 +1,10 @@
 from pydantic import BaseModel
 
+
 class ProductSize(BaseModel):
     size: str
     stock: int
+
 
 class Product(BaseModel):
     title: str
@@ -13,6 +15,7 @@ class Product(BaseModel):
     tags: list[str]
     sizes: list[ProductSize]
 
+
 class ProductPatch(BaseModel):
     title: str | None
     description: str | None
@@ -22,9 +25,11 @@ class ProductPatch(BaseModel):
     tags: list[str] | None
     sizes: list[ProductSize] | None
 
+
 class OrderItem(BaseModel):
     productId: str
     quantity: int
+
 
 class Address(BaseModel):
     street: str
@@ -33,6 +38,7 @@ class Address(BaseModel):
     zip: str
     id: str
     country: str
+
 
 class Order(BaseModel):
     items: list[OrderItem]
@@ -53,10 +59,12 @@ class User(BaseModel):
     defaultAddressId: str
     phone: str
 
+
 class Cart(BaseModel):
     items: list[OrderItem]
     totalPrice: float
     userId: str
+
 
 class Transaction(BaseModel):
     orderId: str
@@ -70,4 +78,3 @@ class Transaction(BaseModel):
     userId: str
     shippingAddress: Address
     billingAddress: Address
-

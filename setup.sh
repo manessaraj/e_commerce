@@ -4,3 +4,4 @@ ENV="e_commerce"
 pyenv virtualenv $PYTHONVERSION $ENV
 pyenv activate $ENV
 pip install -r requirements.txt
+pre-commit install

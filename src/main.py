@@ -1,10 +1,14 @@
 from fastapi import FastAPI
+
 import src.repository as repo
+
 app = FastAPI()
+
 
 @app.get("/")
 async def root():
     return {"message": "Welcome to E-Commerce App"}
+
 
 @app.get("/items/{item_id}")
 async def read_item(item_id: int):
