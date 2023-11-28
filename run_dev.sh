@@ -1,7 +1,7 @@
 #!/bin/bash
-
+source .mongodb_ssh.sh
 ## Run Database ### 
-export MONGO_URI='mongodb://localhost:27017'
+export MONGO_URI="mongodb+srv://$DB_USER:$DB_PASS@cluster0.i0vj3wz.mongodb.net/?retryWrites=true&w=majority"
 export DB_NAME='e_commerce'
 
 # Runserver
