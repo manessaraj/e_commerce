@@ -1,0 +1,22 @@
+[MASTER]
+load-plugins=src
+[FORMAT]
+
+max-line-length=75
+
+[DESIGN]
+min-public-methods=1
+
+
+max-parents=7
+
+[DOCSTRING]
+
+docstring-style=google
+
+[MESSAGES CONTROL]
+
+enable=missing-module-docstring,
+       missing-class-docstring,
+       missing-function-docstring,
+       missing-method-docstring
