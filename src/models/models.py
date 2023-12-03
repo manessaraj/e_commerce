@@ -1,43 +1,54 @@
-from typing import Optional, Type, get_type_hints
+from typing import Any, Optional, Type, get_type_hints
 
-from pydantic import BaseModel, create_model
-
-
-class IdMixin:
-    _id: str
+from bson import ObjectId
+from pydantic import BaseModel, Field, create_model
 
 
-class ProductSize(BaseModel, IdMixin):
+class PyObjectId(ObjectId):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v, *args: Any):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+
+    @classmethod
+    def __get_pydantic_json_schema__(cls):
+        return {"type": "string"}
+
+
+class Model(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+
+
+class ProductSize(BaseModel):
     size: str
     stock: int
 
 
-class Product(BaseModel, IdMixin):
+class Product(Model):
     title: str
     description: str
     price: float
-    image: str
-    categories: list[str]
-    tags: list[str]
-    sizes: list[ProductSize]
-
-
-class ProductPatchV1(BaseModel, IdMixin):
-    title: str | None
-    description: str | None
-    price: float | None
     image: str | None
     categories: list[str] | None
     tags: list[str] | None
     sizes: list[ProductSize] | None
 
 
-class OrderItem(BaseModel, IdMixin):
+class OrderItem(Model):
     productId: str
     quantity: int
 
 
-class Address(BaseModel, IdMixin):
+class Address(Model):
     street: str
     city: str
     state: str
@@ -46,7 +57,7 @@ class Address(BaseModel, IdMixin):
     country: str
 
 
-class Order(BaseModel, IdMixin):
+class Order(Model):
     items: list[OrderItem]
     shippingAddress: Address
     billingAddress: Address
@@ -57,7 +68,7 @@ class Order(BaseModel, IdMixin):
     transactionId: str
 
 
-class User(BaseModel, IdMixin):
+class User(Model):
     email: str
     firstName: str
     lastName: str
@@ -66,13 +77,13 @@ class User(BaseModel, IdMixin):
     phone: str
 
 
-class Cart(BaseModel, IdMixin):
+class Cart(Model):
     items: list[OrderItem]
     totalPrice: float
     userId: str
 
 
-class Transaction(BaseModel, IdMixin):
+class Transaction(Model):
     orderId: str
     paymentMethod: str
     transactionId: str

@@ -17,4 +17,10 @@ https://docs.google.com/document/d/1FslfqIKXR4RCkBDvfiZGfJS9oO78y6Y0sEBKcx0ZSjk/
 3. RUN setup.sh script (Only once to setup python environment and installing requirements.)
 4. RUN run_dev.sh script to start application
 5. Go to `http://127.0.0.1:8000/testdb` to test DB connection. 
-6. TODO: Load fake data. 
+
+
+# Next steps:
+1. Add generic serializer to convert any mongodb document to patch or complete object. 
+2. Add dockerization
+3. Build System
+4. Verify tests running against Mock & Real DB.
