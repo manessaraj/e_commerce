@@ -3,3 +3,4 @@
 .vscode*
 .vscode/*
 .mongodb_ssh.sh
+.env.list
